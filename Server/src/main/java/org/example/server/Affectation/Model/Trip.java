@@ -1,7 +1,6 @@
 package org.example.server.Affectation.Model;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Time;
 import java.util.Date;
@@ -9,33 +8,36 @@ import java.util.Date;
 @Setter
 @Getter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTrip;
 
-    @Column(nullable = false)
+
     private String departure;
 
-    @Column(nullable = false)
+
     private String destination;
 
-    @Column(nullable = false)
+
     private Date departureDate;
 
-    @Column(nullable = false)
+
     private Time departureTime;
 
-    @Column(nullable = false)
+
     private Date arrivalDate;
 
-    @Column(nullable = false)
+
     private Time arrivalTime;
 
-    @Column(nullable = false)
+
     private int nbrOfPassengers;
 
-    @Column(nullable = false)
+
     private String status_confirmation;
 
     @Enumerated(EnumType.STRING)

@@ -14,28 +14,28 @@ public class Vehicule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int IdVehicule;
 
-    @Column(nullable = false)
+
     private String marque;
 
-    @Column(nullable = false)
+
     private String type;
 
-    @Column(nullable = false)
+
     private int kilemotrage;
 
-    @Column(nullable = false)
+
     private String typePermisRequis;
 
-    @Column(nullable = false)
+
     private String assurance;
 
-    @Column(nullable = false)
+
     private int visiteTech;
 
-    @Column(nullable = false)
+
     private int vignette;
 
-    @Column(nullable = false)
+
     private boolean disponibilite;
 
     @OneToMany(mappedBy = "vehicule")

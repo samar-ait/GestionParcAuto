@@ -1,5 +1,6 @@
 package org.example.server.Affectation.Service;
 
+import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.server.Affectation.Mapper.TripMapper;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class TripServiceImp implements TripService {
 
     @Autowired
@@ -22,10 +24,6 @@ public class TripServiceImp implements TripService {
 
     private TripMapper tripMapper; // Inject TripMapper
 
-    public TripServiceImp(TripRepository tripRepository, TripMapper tripMapper) {
-        this.tripRepository = tripRepository;
-        this.tripMapper =tripMapper;
-    }
 
     @Override
     public List<TripDTO> getAllTrips() {

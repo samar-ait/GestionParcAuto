@@ -2,11 +2,12 @@ package org.example.server.Affectation.dto;
 
 import java.util.Date;
 import java.sql.Time;
-import lombok.Setter;
-import lombok.Getter;
+
+import lombok.*;
 
 @Setter
 @Getter
+@Builder
 public class TripDTO {
     private int idTrip;
     private String departure;
