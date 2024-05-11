@@ -1,7 +1,6 @@
 package org.example.server.Affectation.Model;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -9,24 +8,21 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Driver {
     @Id
     private String CIN;
 
-    @Column(nullable = false)
     private String nom;
 
-    @Column(nullable = false)
     private String prenom;
 
-    @Column(nullable = false)
     private Date date_naissance;
 
-    @Column(nullable = false)
     private String addresse;
 
-    @Column(nullable = false)
     private boolean disponibilité;
 
     @OneToMany(mappedBy = "driver")
