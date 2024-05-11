@@ -1,30 +1,20 @@
 package org.example.server.Affectation.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PermisDTO {
     private int numPermis;
-    private Date finValidite;
+    private LocalDate finValidite;
     private String lieuRemisePermis;
     private String driverCin;
-    private List<Integer> permisTypesIds; // Assuming you want to include permisTypes IDs in the DTO
+    private List<Integer> permisTypesIds;
 
-    // Constructors, getters, and setters
-
-    public PermisDTO() {
-    }
-
-    public PermisDTO(int numPermis, Date finValidite, String lieuRemisePermis, String driverCin,
-                     List<Integer> permisTypesIds) {
-        this.numPermis = numPermis;
-        this.finValidite = finValidite;
-        this.lieuRemisePermis = lieuRemisePermis;
-        this.driverCin = driverCin;
-        this.permisTypesIds = permisTypesIds;
-    }
 }

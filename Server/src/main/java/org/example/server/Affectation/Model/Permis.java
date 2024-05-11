@@ -1,26 +1,26 @@
 package org.example.server.Affectation.Model;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Setter
 @Getter
 @Entity
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Permis {
     @Id
-    private int num_permis;
+    private int numPermis;
 
-    @Column(nullable = false)
-    private Date fin_validité;
+    private LocalDate finValidite;
 
-    @Column(nullable = false)
-    private String lieu_remise_permis;
+    private String lieuRemisePermis;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "driver_fk")
     private Driver driver;
 

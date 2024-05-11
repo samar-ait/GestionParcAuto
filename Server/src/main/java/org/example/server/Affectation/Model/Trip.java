@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Setter
@@ -16,38 +18,30 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTrip;
 
-
     private String departure;
-
 
     private String destination;
 
+    private LocalDate departureDate;
 
-    private Date departureDate;
+    private LocalTime departureTime;
 
+    private LocalDate arrivalDate;
 
-    private Time departureTime;
-
-
-    private Date arrivalDate;
-
-
-    private Time arrivalTime;
-
+    private LocalTime arrivalTime;
 
     private int nbrOfPassengers;
 
-
-    private String status_confirmation;
+    private String statusConfirmation;
 
     @Enumerated(EnumType.STRING)
     private VehiculeType vehiculType;
 
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToOne(cascade = { CascadeType.MERGE })
     @JoinColumn(name = "vehicule_id")
     private Vehicule vehicule;
 
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToOne
     @JoinColumn(name = "driver_id")
     private Driver driver;
 

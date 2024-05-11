@@ -1,9 +1,7 @@
 package org.example.server.Affectation.Mapper;
 
 import org.example.server.Affectation.Model.Driver;
-import org.example.server.Affectation.Model.Trip;
 import org.example.server.Affectation.dto.DriverDTO;
-import org.example.server.Affectation.dto.TripDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -14,27 +14,19 @@ public class Vehicule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int IdVehicule;
 
-
     private String marque;
-
 
     private String type;
 
-
     private int kilemotrage;
-
 
     private String typePermisRequis;
 
-
     private String assurance;
-
 
     private int visiteTech;
 
-
     private int vignette;
-
 
     private boolean disponibilite;
 
