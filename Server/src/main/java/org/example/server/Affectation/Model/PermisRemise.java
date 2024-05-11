@@ -22,6 +22,7 @@ public class PermisRemise {
 
     private LocalDate date_remise_permis;
 
+
     @ManyToOne
     @JoinColumn(name = "permis_id")
     private Permis permis;

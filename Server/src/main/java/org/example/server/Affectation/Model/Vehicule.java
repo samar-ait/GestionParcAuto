@@ -16,11 +16,13 @@ public class Vehicule {
 
     private String marque;
 
-    private String type;
+
+    @Enumerated(EnumType.STRING)
+    private VehiculeType type;
 
     private int kilemotrage;
 
-    private String typePermisRequis;
+    private PermisType typePermisRequis;
 
     private String assurance;
 
@@ -33,7 +35,7 @@ public class Vehicule {
     @OneToMany(mappedBy = "vehicule")
     private List<Trip> trip;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "carteGrise_fk")
     private CarteGrise  carteGrise ;
 

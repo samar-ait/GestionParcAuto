@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Permis {
     @Id
     private int numPermis;
@@ -20,10 +21,11 @@ public class Permis {
 
     private String lieuRemisePermis;
 
+
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "driver_fk")
     private Driver driver;
 
-    @OneToMany(mappedBy = "permis",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "permis",cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.EAGER)
     private List<PermisRemise> permisTypes;
 }

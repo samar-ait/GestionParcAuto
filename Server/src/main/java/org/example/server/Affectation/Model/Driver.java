@@ -26,6 +26,7 @@ public class Driver {
 
     private boolean disponibilite;
 
+
     @OneToMany(mappedBy = "driver")
     private List<Trip> trip;
 

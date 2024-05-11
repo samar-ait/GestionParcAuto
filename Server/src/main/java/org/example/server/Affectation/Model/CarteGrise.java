@@ -8,7 +8,6 @@ import java.util.Date;
 @Entity
 @Setter
 @Getter
-
 public class CarteGrise {
     @Id
     private String num_Immatriculation;
@@ -16,11 +15,9 @@ public class CarteGrise {
     private String imm_anterieure;
 
     private Date premiere_mise_Circulation;
-
     private Date MC_MAROC;
 
     private Date mutation;
-
     private String usageCG;
 
     private String proprietaire;
