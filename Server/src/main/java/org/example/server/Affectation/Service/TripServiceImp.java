@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.server.Affectation.Mapper.TripMapper;
+import org.example.server.Affectation.Model.Driver;
 import org.example.server.Affectation.Model.Trip;
 import org.example.server.Affectation.Repository.TripRepository;
 import org.example.server.Affectation.dto.TripDTO;
@@ -23,7 +24,6 @@ public class TripServiceImp implements TripService {
     private TripRepository tripRepository;
 
     private TripMapper tripMapper; // Inject TripMapper
-
 
     @Override
     public List<TripDTO> getAllTrips() {
@@ -58,11 +58,5 @@ public class TripServiceImp implements TripService {
         logger.debug("Saved trip: {}", savedTrip);
         return tripMapper.toTripDTO(savedTrip); // Use instance of TripMapper
     }
-
-    @Override
-    public void deleteTripById(int id) {
-        tripRepository.deleteById((long) id);
-    }
-
 
 }

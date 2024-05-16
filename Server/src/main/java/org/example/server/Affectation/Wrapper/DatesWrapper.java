@@ -1,4 +1,4 @@
-package org.example.server.Affectation.dto;
+package org.example.server.Affectation.Wrapper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

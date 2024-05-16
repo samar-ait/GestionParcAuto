@@ -3,7 +3,6 @@ package org.example.server.Affectation.dto;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -18,7 +17,5 @@ public class DriverDTO {
     private LocalDate dateNaissance;
     private String adresse;
     private boolean disponibilite;
-    private List<Integer> tripIds;
     private int permisId;
-
 }

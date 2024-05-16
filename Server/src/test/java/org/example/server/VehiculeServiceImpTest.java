@@ -35,7 +35,7 @@ public class VehiculeServiceImpTest {
     @BeforeEach
     public void setUp() {
         // Clear the database before each test
-        vehiculeRepository.deleteAll();
+       // vehiculeRepository.deleteAll();
     }
 
     @Test
@@ -52,7 +52,7 @@ public class VehiculeServiceImpTest {
 
         // Create a new CarteGrise entity
         CarteGrise carteGrise = new CarteGrise();
-        carteGrise.setNum_Immatriculation("123ABC");
+        carteGrise.setNum_Immatriculation("ABC");
         // Set other attributes of CarteGrise as needed
         // ...
 

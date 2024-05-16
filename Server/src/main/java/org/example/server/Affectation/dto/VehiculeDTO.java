@@ -1,15 +1,15 @@
 package org.example.server.Affectation.dto;
 
-import lombok.Setter;
-import lombok.Getter;
+import lombok.*;
 import org.example.server.Affectation.Model.CarteGrise;
 import org.example.server.Affectation.Model.PermisType;
 import org.example.server.Affectation.Model.VehiculeType;
 
-import java.util.Date;
-
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class VehiculeDTO {
     private int IdVehicule;
     private String marque;

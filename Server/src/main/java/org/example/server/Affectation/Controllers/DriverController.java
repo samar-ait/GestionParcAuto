@@ -1,15 +1,15 @@
 package org.example.server.Affectation.Controllers;
 import org.example.server.Affectation.Service.DriverService;
+import org.example.server.Affectation.Wrapper.DatesWrapper;
+import org.example.server.Affectation.Wrapper.DriverWrapper;
 import org.example.server.Affectation.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.example.server.Affectation.Service.DriverService;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/drivers")
@@ -19,14 +19,17 @@ public class DriverController {
     private DriverService driverService;
 
     @PostMapping
-    public DriverDTO createDriver(@RequestBody DriverWrapper request) {
+    public ResponseEntity<DriverWrapper> createDriver(@RequestBody DriverWrapper request) {
         System.out.println("save Driver "+request.getDriverDTO().getCin());
         System.out.println("save Permis "+request.getPermisDTO().getNumPermis());
         System.out.println("save Permis "+request.getPermisRemisesDTO().size());
 
-        //return new ResponseEntity<>(savedDriver, HttpStatus.CREATED).getBody();
-
-        return driverService.saveDriver(request.getDriverDTO(), request.getPermisDTO(), request.getPermisRemisesDTO());
+        DriverWrapper driverDTO = driverService.saveDriver(request);
+        if (driverDTO != null) {
+            return ResponseEntity.ok(driverDTO);
+        } else {
+            return ResponseEntity.status(404).build();
+        }
     }
     @GetMapping("/getAllDrivers")
     public List<DriverDTO> getAllDrivers() {

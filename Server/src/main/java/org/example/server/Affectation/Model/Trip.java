@@ -41,7 +41,7 @@ public class Trip {
     @JoinColumn(name = "vehicule_id")
     private Vehicule vehicule;
 
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.MERGE })
     @JoinColumn(name = "driver_id")
     private Driver driver;
 

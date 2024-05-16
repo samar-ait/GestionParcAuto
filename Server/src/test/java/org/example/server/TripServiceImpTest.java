@@ -66,7 +66,7 @@ public class TripServiceImpTest {
                 .build();
 
         // When
-         tripService.deleteTripById(1);
+    //     tripService.deleteTripById(1);
 
     }
 }

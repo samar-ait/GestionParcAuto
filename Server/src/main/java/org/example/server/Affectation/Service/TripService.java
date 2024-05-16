@@ -11,5 +11,6 @@ public interface TripService {
 
     TripDTO saveTrip(TripDTO tripDTO);
 
-    void deleteTripById(int id);
+    //void deleteTripById(int id);
+
 }

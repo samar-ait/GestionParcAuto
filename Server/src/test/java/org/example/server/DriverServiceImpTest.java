@@ -8,6 +8,7 @@ import org.example.server.Affectation.Repository.DriverRepository;
 import org.example.server.Affectation.Repository.PermisRepository;
 import org.example.server.Affectation.Repository.TripRepository;
 import org.example.server.Affectation.Service.DriverServiceImp;
+import org.example.server.Affectation.Wrapper.DriverWrapper;
 import org.example.server.Affectation.dto.DriverDTO;
 import org.example.server.Affectation.dto.PermisDTO;
 import org.example.server.Affectation.dto.PermisRemiseDTO;
@@ -18,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,7 +49,6 @@ public class DriverServiceImpTest {
 
     @BeforeEach
     public void setUp() {
-        // Clear the database before each test
         driverService = new DriverServiceImp(driverRepository,permisRepository,tripRepository,driverMapper,permisMapper,permisRemiseMapper);
     }
 
@@ -57,68 +56,66 @@ public class DriverServiceImpTest {
     public void testSaveDriver() {
         // Given
         DriverDTO driverDTO = DriverDTO.builder()
-                .cin("JAAAAAA")
-                .nom("ait")
-                .prenom("samar")
-                .adresse("dakhla")
-                .dateNaissance(LocalDate.of(2001, 8, 12))
+                .cin("JB111111")
+                .nom("bou")
+                .prenom("karima")
+                .adresse("dcheira")
+                .dateNaissance(LocalDate.of(2002, 1, 27))
                 .disponibilite(true)
                 .build();
 
         PermisDTO permisDTO = PermisDTO.builder()
-                .numPermis(12)
+                .numPermis(10)
                 .lieuRemisePermis("Agadir")
-                .finValidite(LocalDate.of(2024, 5, 1))
+                .finValidite(LocalDate.of(2040, 5, 1))
                 .build();
 
 
         PermisRemiseDTO permisRemiseDTO1 = PermisRemiseDTO.builder()
                 .type(PermisType.B)
-                .date_remise_permis(LocalDate.of(2020, 1, 1))
+                .date_remise_permis(LocalDate.of(2023, 1, 1))
                 .build();
 
         PermisRemiseDTO permisRemiseDTO2 = PermisRemiseDTO.builder()
                 .type(PermisType.C)
-                .date_remise_permis(LocalDate.of(2022, 4, 1))
+                .date_remise_permis(LocalDate.of(2024, 4, 1))
                 .build();
 
         List<PermisRemiseDTO> permisRemisesDTO = Arrays.asList(permisRemiseDTO1, permisRemiseDTO2);
 
+        DriverWrapper driverWrapper = new DriverWrapper(driverDTO,permisDTO,permisRemisesDTO);
+
         // When
-        DriverDTO savedDriver = driverService.saveDriver(driverDTO, permisDTO, permisRemisesDTO);
+        DriverWrapper savedDriverWrapper = driverService.saveDriver(driverWrapper);
 
         // Then
         //assert that the saved driver DTO contains the expected values
-        assertEquals("JAAAAAA", savedDriver.getCin());
-
+        assertEquals("JB111111", savedDriverWrapper.getDriverDTO().getCin());
     }
     @Test
     public void testDeleteDriver() {
         // Given
         DriverDTO driverDTO = DriverDTO.builder()
-                .cin("JB515847")
-                .nom("karima")
+                .cin("JB111111")
+                .nom("bou")
                 .build();
 
         // When
-        driverService.deleteDriverById("JB515847");
-
+        driverService.deleteDriverById("JB111111");
     }
 
     @Test
     public void testDriverAvailability() {
         DriverDTO driverDTO = DriverDTO.builder()
-                .cin("JB515847")
-                .nom("karima")
+                .cin("JB111111")
+                .nom("bou")
                 .build();
         LocalDate dateDepart = LocalDate.of(2024, 5, 15);
         LocalDate dateArrival = LocalDate.of(2024, 5, 20);
 
         Boolean dispo = driverService.driverAvailability(driverDTO,dateDepart,dateArrival);
-        System.out.println("******************************************"+dispo);
 
         assertEquals(false, dispo);
-
     }
     @Test
     public void findDriversAvailableBetweenDates() {
@@ -127,7 +124,5 @@ public class DriverServiceImpTest {
         LocalDate dateArrival = LocalDate.of(2024, 5, 20);
 
         driverService.findDriversAvailableBetweenDates(dateDepart,dateArrival);
-
-
     }
 }

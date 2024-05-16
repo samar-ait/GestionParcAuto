@@ -20,7 +20,7 @@ public class Vehicule {
     @Enumerated(EnumType.STRING)
     private VehiculeType type;
 
-    private int kilemotrage;
+    private int kilometrage;
 
     private PermisType typePermisRequis;
 

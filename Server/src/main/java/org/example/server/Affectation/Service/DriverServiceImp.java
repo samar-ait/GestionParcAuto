@@ -11,18 +11,16 @@ import org.example.server.Affectation.Model.Permis;
 import org.example.server.Affectation.Model.PermisRemise;
 import org.example.server.Affectation.Model.Trip;
 import org.example.server.Affectation.Repository.DriverRepository;
-import org.example.server.Affectation.Repository.PermisRemiseRepository;
 import org.example.server.Affectation.Repository.PermisRepository;
 import org.example.server.Affectation.Repository.TripRepository;
+import org.example.server.Affectation.Wrapper.DriverWrapper;
 import org.example.server.Affectation.dto.DriverDTO;
 import org.example.server.Affectation.dto.PermisDTO;
 import org.example.server.Affectation.dto.PermisRemiseDTO;
-import org.example.server.Affectation.dto.TripDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -58,18 +56,22 @@ public class DriverServiceImp implements DriverService{
     // Helper method to map Driver entities to DriverDto objects
     private List<DriverDTO> mapDriversToDriversDto(List<Driver> drivers) {
         return drivers.stream()
-                .map(driverMapper::toDriverDTO) // Use instance of DriverMapper
+                .map(driverMapper::toDriverDTO)
                 .collect(Collectors.toList());
     }
     @Override
     public DriverDTO getDriverById(String cin) {
         Optional<Driver> driverOptional = driverRepository.findById(cin);
-        return driverOptional.map(driverMapper::toDriverDTO).orElse(null); // Use instance of DriverMapper
+        return driverOptional.map(driverMapper::toDriverDTO).orElse(null);
     }
     private static final Logger logger = LogManager.getLogger(TripServiceImp.class);
 
     @Override
-    public DriverDTO saveDriver(DriverDTO driverDTO, PermisDTO permisDTO, List<PermisRemiseDTO> permisRemisesDTO) {
+    public DriverWrapper saveDriver(DriverWrapper driverWrapper) {
+        DriverDTO driverDTO = driverWrapper.getDriverDTO();
+        PermisDTO permisDTO = driverWrapper.getPermisDTO();
+        List<PermisRemiseDTO> permisRemisesDTO = driverWrapper.getPermisRemisesDTO();
+
         logger.info("Entering saveDriver()");
         // Log the contents of the driverDTO
         logger.debug("driverDTO: {}", driverDTO);
@@ -83,7 +85,6 @@ public class DriverServiceImp implements DriverService{
 
         // Set the manually assigned primary key value
         permis.setNumPermis(permisDTO.getNumPermis());
-
 
         // Map DTO to entity
         List<PermisRemise> permisRemises = new ArrayList<PermisRemise>();
@@ -107,7 +108,9 @@ public class DriverServiceImp implements DriverService{
 
         Driver savedDriver = driverRepository.save(driver);
         logger.debug("Saved driver: {}", savedDriver);
-        return driverMapper.toDriverDTO(savedDriver);
+
+        DriverWrapper savedDriverWrapper = new DriverWrapper(driverMapper.toDriverDTO(savedDriver),permisMapper.toPermisDTO(savedPermis),permisRemisesDTO);
+        return savedDriverWrapper;
     }
 
     @Override
@@ -140,19 +143,11 @@ public class DriverServiceImp implements DriverService{
         }
         List<Trip> trips = (List<Trip>)tripRepository.findAll();
 
-        System.out.println("******************************************"+driver.getNom());
-        System.out.println("******************************************"+driver.getCIN());
         for (Trip trip : trips) {
-            System.out.println("******************************************"+trip.getDriver().getCIN());
-            System.out.println("******************************************"+driver.getCIN());
-
             if(Objects.equals(trip.getDriver().getCIN(), driver.getCIN())){
 
                if ((dateDepart.isBefore(trip.getArrivalDate()) || dateDepart.isEqual(trip.getArrivalDate())) &&
                         (dateArrival.isAfter(trip.getDepartureDate()) || dateArrival.isEqual(trip.getDepartureDate()))) {
-                  // System.out.println("******************************************"+dateDepart);
-                   //System.out.println("******************************************"+trip.getArrivalDate());
-
                    return false; //Driver not available
                }
             }
